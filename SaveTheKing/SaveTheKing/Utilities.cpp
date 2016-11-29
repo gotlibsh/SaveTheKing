@@ -1,0 +1,68 @@
+#include "Utilities.h"
+#include <stdlib.h>
+#include <time.h>
+
+vector<string> readLevel(ifstream & file, const string & terminator)
+{
+	vector<string> v{};
+	string line = "";
+
+	while (std::getline(file, line))
+	{
+		if (line.compare(terminator) == 0)
+			break;
+
+		v.push_back(line);
+	}
+
+	return v;
+}
+
+KeyPress keyboardKey()
+{
+	while (!_kbhit())       // Wait for a key to be pressed
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+	}
+	int key = _getch();
+	switch (key)
+	{
+	case 0:
+	case SPECIAL_KEY:
+	{
+		key = _getch();
+
+		switch (key)
+		{
+		case KB_UP:
+			return UP;
+		case KB_DOWN:
+			return DOWN;
+		case KB_LEFT:
+			return LEFT;
+		case KB_RIGHT:
+			return RIGHT;
+		default:
+			return OTHER;
+		}
+	}
+	break;
+	case KB_P:
+		return CHANGE_CHAR;
+	case KB_SPACE:
+		return SPACE;
+	case KB_ESCAPE:
+		return ESCAPE;
+	default:
+		return OTHER;
+	}
+}
+
+/*
+Returns a random direction for midgets top,bottom,left,right
+*/
+KeyPress randomDirection()
+{
+	//Srand to be added
+	return KeyPress(rand()%4);
+}
