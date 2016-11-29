@@ -5,7 +5,7 @@ Board::Board()
 {
 }
 
-Board::Board(const vector<string> vec)
+Board::Board(const vector<string> & vec)
 {
 	setBricks(vec);
 }
@@ -36,7 +36,7 @@ Brick Board::getBrick(const Point & place) const
 	return m_bricks[place.m_y][place.m_x];
 }
 
-void Board::setNewState(Point place, BrickState state)
+void Board::setNewState(const Point & place, BrickState state)
 {
 	m_bricks[place.m_y][place.m_x].setState(state);
 }
