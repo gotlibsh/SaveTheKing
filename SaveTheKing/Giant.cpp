@@ -1,14 +1,30 @@
 #include "Giant.h"
 
-Giant::Giant()
-{
-}
+//+---------------------------------------------------------+
+//|						Constructors						|
+//+---------------------------------------------------------+
 
+/*
+*	Default constructor.
+*/
+Giant::Giant()
+{}
+
+/*
+*	Assigns the place and other variables of the giant.
+*/
 Giant::Giant(const Point & place)
 	:m_place(place), m_isAboveKey(false)
 {}
 
 
+//+---------------------------------------------------------+
+//|					Public Member Functions					|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the giant succeed to step his wanted step.
+*/
 bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 {
 	Brick neighbor = board.getNeighbor(m_place, direction);
@@ -45,6 +61,13 @@ bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 	return true;
 }
 
+//+---------------------------------------------------------+
+//|					Private Member Functions				|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the giant is allowed to step on the given brick.
+*/
 bool Giant::isStepable(const Brick & brick) const
 {
 	return (brick.getState() == MIDGET ||
@@ -52,6 +75,9 @@ bool Giant::isStepable(const Brick & brick) const
 		brick.getState() == KEY);
 }
 
+/*
+*	Returns the index of the midget with given place.
+*/
 int Giant::findMidget(const vector<Midget> midgets, const Point & place) const
 {
 	for (int i = 0; i < midgets.size(); i++)

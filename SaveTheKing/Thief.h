@@ -7,12 +7,18 @@
 class Thief
 {
 public:
+	//	Constructors
 	Thief();
-	Thief(Point place);
+	Thief(const Point & place);
+
+	//	Public Member Functions
 	bool stepTo(Board & board, KeyPress direction);
 	bool hasAKey() const;
 private:
+	//	Private Member Functions
 	bool isStepable(const Brick & brick) const;
+
+	//	Private Member Data
 	Point m_place;
 	bool m_hasAKey;
 	bool m_isAboveAKey;

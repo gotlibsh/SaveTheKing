@@ -1,13 +1,29 @@
 #include "Thief.h"
 
-Thief::Thief()
-{
-}
+//+---------------------------------------------------------+
+//|						Constructors						|
+//+---------------------------------------------------------+
 
-Thief::Thief(Point place)
+/*
+*	Default constructor.
+*/
+Thief::Thief()
+{}
+
+/*
+*	Assigns the place and variables of the thief.
+*/
+Thief::Thief(const Point & place)
 	:m_place(place), m_hasAKey(false), m_isAboveAKey(false)
 {}
 
+//+---------------------------------------------------------+
+//|					Public Member Functions					|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the thief succeed to step his wanted step.
+*/
 bool Thief::stepTo(Board & board, KeyPress direction)
 {
 	Brick neighbor = board.getNeighbor(m_place, direction);
@@ -44,11 +60,21 @@ bool Thief::stepTo(Board & board, KeyPress direction)
 	return true;
 }
 
+/*
+*	Returns whether the thief has already a key or not.
+*/
 bool Thief::hasAKey() const
 {
 	return m_hasAKey;
 }
 
+//+---------------------------------------------------------+
+//|					Private Member Functions				|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the thief is allowed to step on the given brick.
+*/
 bool Thief::isStepable(const Brick & brick) const
 {
 	return (brick.getState() == GATE ||

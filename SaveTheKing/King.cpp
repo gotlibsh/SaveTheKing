@@ -1,13 +1,29 @@
 #include "King.h"
 
-King::King()
-{
-}
+//+---------------------------------------------------------+
+//|						Constructors						|
+//+---------------------------------------------------------+
 
+/*
+*	Default constructor.
+*/
+King::King()
+{}
+
+/*
+*	Assigns the place and other variables of the king.
+*/
 King::King(const Point & place)
 	:m_place(place), m_isAboveKey(false), m_cameToThrone(false)
 {}
 
+//+---------------------------------------------------------+
+//|					Public Member Functions					|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the king succeed to step his wanted step.
+*/
 bool King::stepTo(Board & board, KeyPress direction)
 {
 	Brick neighbor = board.getNeighbor(m_place, direction);
@@ -36,14 +52,26 @@ bool King::stepTo(Board & board, KeyPress direction)
 	return true;
 }
 
+
+/*
+*	Returns whether the king came to the throne or not.
+*/
+bool King::cameToThrone() const
+{
+	return m_cameToThrone;
+}
+
+
+//+---------------------------------------------------------+
+//|					Private Member Functions				|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the king is allowed to step on the given brick.
+*/
 bool King::isStepable(const Brick & brick) const
 {
 	return (brick.getState() == THRONE ||
 		brick.getState() == EMPTY ||
 		brick.getState() == KEY);
-}
-
-bool King::cameToThrone() const
-{
-	return m_cameToThrone;
 }

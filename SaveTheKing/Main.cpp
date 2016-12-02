@@ -3,13 +3,15 @@
 
 int main()
 {
-	string path = "level.txt";
+	string path = "levels.txt";
 	string levelTerminator = "$$$";
-
+	
 	Controller gameController(path, levelTerminator);
 
 	if (gameController.isFileOpen())
+	{
 		gameController.startGame();
+	}
 	else
 	{
 		std::cout << "Couldn't find or open the file " << path << std::endl;

@@ -12,18 +12,24 @@
 class Controller
 {
 public:
+	//	Constructor/Distructor
 	Controller(string levelFilePath, string terminator);
 	~Controller();
+
+	//	Public Member Functions
 	void startGame();
 	bool isFileOpen() const;
 private:
+	//	Private Member Functions
 	void setNewLevel();
 	void setNewCharacters(const vector<vector<Brick>> & boardBricks);
 	bool moveCharacter(KeyPress key);
 	void moveMidgets();
 	void printScreen() const;
 	ActiveChar nextChar();
-	std::ifstream m_file;
+
+	//	Private Member Data
+	ifstream m_file;
 	string m_terminator;
 	King m_king;
 	Mage m_mage;

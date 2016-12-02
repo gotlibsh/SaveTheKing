@@ -1,13 +1,29 @@
 #include "Mage.h"
 
-Mage::Mage()
-{
-}
+//+---------------------------------------------------------+
+//|						Constructors						|
+//+---------------------------------------------------------+
 
+/*
+*	Default constructor.
+*/
+Mage::Mage()
+{}
+
+/*
+*	Assigns the place and other variables of the king.
+*/
 Mage::Mage(const Point & place)
 	:m_place(place), m_isAboveKey(false)
 {}
 
+//+---------------------------------------------------------+
+//|					Public Member Functions					|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the mage succeed to step his wanted step.
+*/
 bool Mage::stepTo(Board & board, KeyPress direction)
 {
 	Brick neighbor = board.getNeighbor(m_place, direction);
@@ -35,6 +51,13 @@ bool Mage::stepTo(Board & board, KeyPress direction)
 	return true;
 }
 
+//+---------------------------------------------------------+
+//|					Private Member Functions				|
+//+---------------------------------------------------------+
+
+/*
+*	Returns whether the mage is allowed to step on the given brick.
+*/
 bool Mage::isStepable(const Brick & brick) const
 {
 	return (brick.getState() == FIRE ||

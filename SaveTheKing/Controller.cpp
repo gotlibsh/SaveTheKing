@@ -2,28 +2,46 @@
 #include <iostream>
 #include <Windows.h>
 
+//+---------------------------------------------------------+
+//|						Constructors						|
+//+---------------------------------------------------------+
+
+/*
+*	Assigns the variables of the controller.
+*/
 Controller::Controller(string levelFilePath, string terminator)
+	: m_terminator(terminator), m_sumOfSteps(0), m_activeChar(P_KING)
 {
+	srand((unsigned)time(NULL));	// Resets for random midgets moves.
 	m_file.open(levelFilePath);
-	m_terminator = terminator;
-	m_sumOfSteps = 0;
-	m_activeChar = P_KING;
 }
 
+/*
+*	Closes the ifstream m_file when the controller is out of use.
+*/
 Controller::~Controller()
 {
 	if (m_file.is_open())
 		m_file.close();
 }
 
+//+---------------------------------------------------------+
+//|					Public Member Functions					|
+//+---------------------------------------------------------+
+
+/*
+*	Runs the whole game until the user ends all levels, or until the escape key is pressed.
+*/
 void Controller::startGame()
 {
-	while (!m_file.eof())
+	KeyPress key = OTHER;
+
+	while (!m_file.eof() && key != ESCAPE)
 	{
 		setNewLevel();
 		printScreen();
 
-		KeyPress key = keyboardKey();
+		key = keyboardKey();
 
 		do
 		{
@@ -36,8 +54,8 @@ void Controller::startGame()
 				if (moveCharacter(key))
 				{
 					moveMidgets();
-					printScreen();
 					m_sumOfSteps++;
+					printScreen();
 				}
 				break;
 			case CHANGE_CHAR:
@@ -55,26 +73,40 @@ void Controller::startGame()
 			}
 
 			key = keyboardKey();
-		} while (key != ESCAPE && !m_king.cameToThrone());
+		} while (!m_king.cameToThrone() && key != ESCAPE);
 	}
 }
 
+/*
+*	Returns whether the file stream is open or not.
+*/
 bool Controller::isFileOpen() const
 {
 	return m_file.is_open();
 }
 
+//+---------------------------------------------------------+
+//|					Private Member Functions				|
+//+---------------------------------------------------------+
+
+/*
+*	Resets all variables needed to start a new level.
+*/
 void Controller::setNewLevel()
 {
+	std::system("cls");
 	vector<string> textLevel = readLevel(m_file, m_terminator);
 	m_board = Board(textLevel);
-
 	vector<vector<Brick>> boardBricks = m_board.getBricks();
+	
 	setNewCharacters(boardBricks);
 	m_activeChar = P_KING;
 	m_sumOfSteps = 0;
 }
 
+/*
+*	Resets the characters to the new state according to the new level.
+*/
 void Controller::setNewCharacters(const vector<vector<Brick>> & boardBricks)
 {
 	m_midgets.clear();
@@ -109,6 +141,9 @@ void Controller::setNewCharacters(const vector<vector<Brick>> & boardBricks)
 	}
 }
 
+/*
+*	Moves the given character to his next step.
+*/
 bool Controller::moveCharacter(KeyPress key)
 {
 	switch (m_activeChar)
@@ -125,6 +160,9 @@ bool Controller::moveCharacter(KeyPress key)
 	return false;
 }
 
+/*
+*	Moves all the midgets one step each.
+*/
 void Controller::moveMidgets()
 {
 	for (auto & midget : m_midgets)
@@ -133,6 +171,9 @@ void Controller::moveMidgets()
 	}
 }
 
+/*
+*	Prints the board and all of the additional details.
+*/
 void Controller::printScreen() const
 {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0, 0 });
@@ -156,9 +197,12 @@ void Controller::printScreen() const
 	}
 
 	std::cout << "Sum of moves: " << m_sumOfSteps << std::endl;
-	std::cout << "Thief has a key: " << ((m_thief.hasAKey()) ? "Yes" : "No ");
+	std::cout << "Thief has a key: " << ((m_thief.hasAKey()) ? "Yes" : "No ") << std::endl;
 }
 
+/*
+*	Returns the next character in line.
+*/
 ActiveChar Controller::nextChar()
 {
 	return (ActiveChar)((m_activeChar + 1) % 4);

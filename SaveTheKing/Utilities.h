@@ -14,6 +14,7 @@ const int SPECIAL_KEY = 224;
 const int KB_ESCAPE = 27;
 const int KB_SPACE = 32;
 const int KB_P = 80;
+const int KB_p = 112;
 const int KB_UP = 72;
 const int KB_DOWN = 80;
 const int KB_LEFT = 75;
@@ -44,7 +45,7 @@ enum ActiveChar
 
 enum KeyPress
 {
-	UP,
+	UP = 0,
 	DOWN,
 	LEFT,
 	RIGHT,
