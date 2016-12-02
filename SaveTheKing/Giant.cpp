@@ -41,7 +41,7 @@ bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 		int curMidget = findMidget(midgets, neighbor.getPlace());
 		isMidgetAboveKey = midgets[curMidget].isAboveKey();
 
-		//	If he steped on a midget then he moves him back to his base place.
+		//	If he stepped on a midget then he moves him back to his base place.
 		midgets[curMidget].moveToBase(board);
 		midgets[curMidget].setAboveKey(false);
 	}

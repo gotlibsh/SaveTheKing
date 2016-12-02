@@ -30,7 +30,7 @@ bool King::stepTo(Board & board, KeyPress direction)
 
 	if (!isStepable(neighbor))
 	{
-		return false;		// Can't move.
+		return false;
 	}
 
 	if (m_isAboveKey)

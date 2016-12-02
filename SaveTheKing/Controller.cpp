@@ -73,6 +73,10 @@ void Controller::runGame()
 			default:
 				break;
 			}
+			if (m_king.cameToThrone())
+			{
+				break;
+			}
 
 			key = keyboardKey();
 		} while (!m_king.cameToThrone());
