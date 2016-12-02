@@ -42,18 +42,21 @@ bool Midget::stepTo(Board & board, KeyPress direction)
 	}
 
 	if (m_isAboveKey)
-	{
+	{	//	The midget was above a key.
 		board.setNewState(m_currentPlace, KEY);
 		m_isAboveKey = false;
 	}
-	else if(board.getBrick(m_currentPlace).getState() == MIDGET) // checks if nobody else is there (maybe he came back when someone was there.)
+	//	Checks if nobody else is there (maybe he came back when someone was there).
+	else if(board.getBrick(m_currentPlace).getState() == MIDGET)
 	{
 		board.setNewState(m_currentPlace, EMPTY);
 	}
 
+	//	Updates the new place of the midget and draws it on the board.
 	m_currentPlace = neighbor.getPlace();
 	board.setNewState(m_currentPlace, MIDGET);
 
+	//	Updates whether the midget stepped on a key or not.
 	m_isAboveKey = (neighbor.getState() == KEY);
 
 	return true;

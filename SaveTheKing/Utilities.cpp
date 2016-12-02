@@ -28,7 +28,9 @@ KeyPress keyboardKey()
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
+
 	int key = _getch();
+
 	switch (key)
 	{
 	case 0:
@@ -68,5 +70,5 @@ KeyPress keyboardKey()
 */
 KeyPress randomDirection()
 {
-	return KeyPress(rand() % 4);
+	return (KeyPress)(rand() % 4);
 }

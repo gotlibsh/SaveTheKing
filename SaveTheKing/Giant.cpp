@@ -28,7 +28,7 @@ Giant::Giant(const Point & place)
 bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 {
 	Brick neighbor = board.getNeighbor(m_place, direction);
-	bool isMidgetAboveKey = false;
+	bool isMidgetAboveKey = false;	//	Holds whether the midget we're moving was above a key or not.
 
 	if (!isStepable(neighbor))
 	{
@@ -37,14 +37,17 @@ bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 
 	if (neighbor.getState() == MIDGET)
 	{
+		//	Index to the midget we're moving back to his place.
 		int curMidget = findMidget(midgets, neighbor.getPlace());
 		isMidgetAboveKey = midgets[curMidget].isAboveKey();
+
+		//	If he steped on a midget then he moves him back to his base place.
 		midgets[curMidget].moveToBase(board);
 		midgets[curMidget].setAboveKey(false);
 	}
 	
 	if (m_isAboveKey)
-	{
+	{	//	The giant was above a key.
 		board.setNewState(m_place, KEY);
 		m_isAboveKey = false;
 	}
@@ -53,9 +56,11 @@ bool Giant::stepTo(Board & board, KeyPress direction, vector<Midget> & midgets)
 		board.setNewState(m_place, EMPTY);
 	}
 
+	//	Updates the new place of the giant and draws it on the board.
 	m_place = neighbor.getPlace();
 	board.setNewState(m_place, GIANT);
 
+	//	Updates whether the giant stepped on a key or not.
 	m_isAboveKey = (neighbor.getState() == KEY || isMidgetAboveKey);
 
 	return true;

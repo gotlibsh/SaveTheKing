@@ -34,7 +34,7 @@ bool Thief::stepTo(Board & board, KeyPress direction)
 	}
 
 	if (m_isAboveAKey)
-	{
+	{	//	The thief was above a key (apart from the key he holds in his packet).
 		board.setNewState(m_place, KEY);
 		m_isAboveAKey = false;
 	}
@@ -43,15 +43,16 @@ bool Thief::stepTo(Board & board, KeyPress direction)
 		board.setNewState(m_place, EMPTY);
 	}
 
+	//	Updates the new place of the thief and draws it on the board.
 	m_place = neighbor.getPlace();
 	board.setNewState(m_place, THIEF);
 
 	switch (neighbor.getState())
 	{
-	case GATE:
+	case GATE:	//	Key has been used.
 		m_hasAKey = false;
 		break;
-	case KEY:
+	case KEY:	//	Handles both options: first key to grab and second key.
 		m_isAboveAKey = m_hasAKey;
 		m_hasAKey = true;
 		break;

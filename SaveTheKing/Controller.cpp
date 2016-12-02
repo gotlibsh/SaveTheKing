@@ -32,11 +32,11 @@ Controller::~Controller()
 /*
 *	Runs the whole game until the user ends all levels, or until the escape key is pressed.
 */
-void Controller::startGame()
+void Controller::runGame()
 {
 	KeyPress key = OTHER;
 
-	while (!m_file.eof() && key != ESCAPE)
+	while (!m_file.eof())
 	{
 		setNewLevel();
 		printScreen();
@@ -66,6 +66,8 @@ void Controller::startGame()
 				moveMidgets();
 				printScreen();
 				break;
+			case ESCAPE:
+				return;
 			case OTHER:
 				break;
 			default:
@@ -73,7 +75,7 @@ void Controller::startGame()
 			}
 
 			key = keyboardKey();
-		} while (!m_king.cameToThrone() && key != ESCAPE);
+		} while (!m_king.cameToThrone());
 	}
 }
 
@@ -203,7 +205,7 @@ void Controller::printScreen() const
 /*
 *	Returns the next character in line.
 */
-ActiveChar Controller::nextChar()
+ActiveChar Controller::nextChar() const
 {
 	return (ActiveChar)((m_activeChar + 1) % 4);
 }

@@ -34,7 +34,7 @@ bool King::stepTo(Board & board, KeyPress direction)
 	}
 
 	if (m_isAboveKey)
-	{
+	{	//	The king was above a key.
 		board.setNewState(m_place, KEY);
 		m_isAboveKey = false;
 	}
@@ -43,9 +43,11 @@ bool King::stepTo(Board & board, KeyPress direction)
 		board.setNewState(m_place, EMPTY);
 	}
 
+	//	Updates the new place of the king and draws it down.
 	m_place = neighbor.getPlace();
 	board.setNewState(m_place, KING);
 	
+	//	Updates whether the king came to his throne, and whether his stepped on a key.
 	m_cameToThrone = (neighbor.getState() == THRONE);
 	m_isAboveKey = (neighbor.getState() == KEY);
 

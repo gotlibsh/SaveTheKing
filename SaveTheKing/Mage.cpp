@@ -34,7 +34,7 @@ bool Mage::stepTo(Board & board, KeyPress direction)
 	}
 
 	if (m_isAboveKey)
-	{
+	{	//	The mage was above a key.
 		board.setNewState(m_place, KEY);
 		m_isAboveKey = false;
 	}
@@ -43,9 +43,11 @@ bool Mage::stepTo(Board & board, KeyPress direction)
 		board.setNewState(m_place, EMPTY);
 	}
 
+	//	Updates the new place of the mage and draws it on the board.
 	m_place = neighbor.getPlace();
 	board.setNewState(m_place, MAGE);
 
+	//	Updates whether the mage stepped on a key.
 	m_isAboveKey = (neighbor.getState() == KEY);
 
 	return true;

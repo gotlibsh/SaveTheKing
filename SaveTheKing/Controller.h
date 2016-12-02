@@ -17,7 +17,7 @@ public:
 	~Controller();
 
 	//	Public Member Functions
-	void startGame();
+	void runGame();
 	bool isFileOpen() const;
 private:
 	//	Private Member Functions
@@ -26,7 +26,7 @@ private:
 	bool moveCharacter(KeyPress key);
 	void moveMidgets();
 	void printScreen() const;
-	ActiveChar nextChar();
+	ActiveChar nextChar() const;
 
 	//	Private Member Data
 	ifstream m_file;
