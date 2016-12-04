@@ -55,6 +55,7 @@ enum KeyPress
 	OTHER
 };
 
+void printMsg(string path);
 vector<string> readLevel(ifstream & file, const string & terminator);
 KeyPress keyboardKey();
 KeyPress randomDirection();

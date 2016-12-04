@@ -26,6 +26,7 @@ private:
 	bool moveCharacter(KeyPress key);
 	void moveMidgets();
 	void printScreen() const;
+	void finishedLevelMsg() const;
 	ActiveChar nextChar() const;
 
 	//	Private Member Data
@@ -39,5 +40,6 @@ private:
 	Board m_board;
 	ActiveChar m_activeChar;
 	int m_sumOfSteps;
+	int m_level;
 };
 

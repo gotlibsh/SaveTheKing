@@ -10,7 +10,7 @@
 *	Assigns the variables of the controller.
 */
 Controller::Controller(string levelFilePath, string terminator)
-	: m_terminator(terminator), m_sumOfSteps(0), m_activeChar(P_KING)
+	: m_terminator(terminator), m_sumOfSteps(0), m_activeChar(P_KING), m_level(0)
 {
 	srand((unsigned)time(NULL));	// Resets for random midgets moves.
 	m_file.open(levelFilePath);
@@ -73,6 +73,7 @@ void Controller::runGame()
 			default:
 				break;
 			}
+
 			if (m_king.cameToThrone())
 			{
 				break;
@@ -80,6 +81,8 @@ void Controller::runGame()
 
 			key = keyboardKey();
 		} while (!m_king.cameToThrone());
+
+		finishedLevelMsg();
 	}
 }
 
@@ -108,6 +111,7 @@ void Controller::setNewLevel()
 	setNewCharacters(boardBricks);
 	m_activeChar = P_KING;
 	m_sumOfSteps = 0;
+	m_level++;
 }
 
 /*
@@ -204,6 +208,17 @@ void Controller::printScreen() const
 
 	std::cout << "Sum of moves: " << m_sumOfSteps << std::endl;
 	std::cout << "Thief has a key: " << ((m_thief.hasAKey()) ? "Yes" : "No ") << std::endl;
+}
+
+/*
+*	Prints the 'Finished level' message.
+*/
+void Controller::finishedLevelMsg() const
+{
+	system("cls");
+	std::cout << "Congrats! You finished level " << m_level << std::endl;
+	std::cout << "Press any key to continue...";
+	_getch();
 }
 
 /*

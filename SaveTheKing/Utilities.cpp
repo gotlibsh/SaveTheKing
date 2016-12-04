@@ -1,23 +1,5 @@
 #include "Utilities.h"
-
-/*
-*	Returns a vector of strings read from the given file stream.
-*/
-vector<string> readLevel(ifstream & file, const string & terminator)
-{
-	vector<string> vec;
-	string line;
-
-	while (std::getline(file, line))
-	{
-		if (line.compare(terminator) == 0)
-			break;
-
-		vec.push_back(line);
-	}
-
-	return vec;
-}
+#include <iostream>
 
 /*
 *	Returns the user's input key.
@@ -63,6 +45,45 @@ KeyPress keyboardKey()
 	default:
 		return OTHER;
 	}
+}
+
+/*
+*	Returns a vector of strings read from the given file stream.
+*/
+vector<string> readLevel(ifstream & file, const string & terminator)
+{
+	vector<string> vec;
+	string line;
+
+	while (std::getline(file, line))
+	{
+		if (line.compare(terminator) == 0)
+			break;
+
+		vec.push_back(line);
+	}
+
+	return vec;
+}
+
+/*
+*	Prints the given file out to the board.
+*/
+void printMsg(string path)
+{
+	ifstream file(path);
+	string line;
+
+	if (!file.is_open())	
+		return;
+
+	while(std::getline(file, line))
+	{
+		std::cout << line << std::endl;
+	}
+
+	file.close();
+	_getch();
 }
 
 /*
