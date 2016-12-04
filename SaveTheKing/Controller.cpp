@@ -10,9 +10,9 @@
 *	Assigns the variables of the controller.
 */
 Controller::Controller(string levelFilePath, string terminator)
-	: m_terminator(terminator), m_sumOfSteps(0), m_activeChar(P_KING), m_level(0)
+	: m_terminator(terminator), m_sumOfSteps(0), m_activeChar(P_KING), m_level(0), m_exitSuccess(true)
 {
-	srand((unsigned)time(NULL));	// Resets for random midgets moves.
+	srand((unsigned)time(NULL));	//	Resets for random midgets moves.
 	m_file.open(levelFilePath);
 }
 
@@ -67,6 +67,7 @@ void Controller::runGame()
 				printScreen();
 				break;
 			case ESCAPE:
+				m_exitSuccess = false;
 				return;
 			case OTHER:
 				break;
@@ -94,6 +95,14 @@ bool Controller::isFileOpen() const
 	return m_file.is_open();
 }
 
+/*
+*	Returns whether the game has ended successfully or by an escape.
+*/
+bool Controller::exitSucceed() const
+{
+	return m_exitSuccess;
+}
+
 //+---------------------------------------------------------+
 //|					Private Member Functions				|
 //+---------------------------------------------------------+
@@ -103,7 +112,6 @@ bool Controller::isFileOpen() const
 */
 void Controller::setNewLevel()
 {
-	std::system("cls");
 	vector<string> textLevel = readLevel(m_file, m_terminator);
 	m_board = Board(textLevel);
 	vector<vector<Brick>> boardBricks = m_board.getBricks();
@@ -215,10 +223,10 @@ void Controller::printScreen() const
 */
 void Controller::finishedLevelMsg() const
 {
-	system("cls");
+	std::system("cls");
 	std::cout << "Congrats! You finished level " << m_level << std::endl;
-	std::cout << "Press any key to continue...";
-	_getch();
+	std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+	std::system("cls");
 }
 
 /*

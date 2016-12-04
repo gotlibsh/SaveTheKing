@@ -69,13 +69,15 @@ vector<string> readLevel(ifstream & file, const string & terminator)
 /*
 *	Prints the given file out to the board.
 */
-void printMsg(string path)
+void printMsg(const string & path)
 {
 	ifstream file(path);
 	string line;
 
-	if (!file.is_open())	
+	if (!file.is_open())
+	{
 		return;
+	}
 
 	while(std::getline(file, line))
 	{
@@ -83,7 +85,8 @@ void printMsg(string path)
 	}
 
 	file.close();
-	_getch();
+	std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+	std::system("cls");
 }
 
 /*

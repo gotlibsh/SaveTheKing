@@ -12,13 +12,14 @@
 class Controller
 {
 public:
-	//	Constructor/Distructor
+	//	Constructor/Destructor
 	Controller(string levelFilePath, string terminator);
 	~Controller();
 
 	//	Public Member Functions
 	void runGame();
 	bool isFileOpen() const;
+	bool exitSucceed() const;
 private:
 	//	Private Member Functions
 	void setNewLevel();
@@ -39,6 +40,7 @@ private:
 	vector<Midget> m_midgets;
 	Board m_board;
 	ActiveChar m_activeChar;
+	bool m_exitSuccess;
 	int m_sumOfSteps;
 	int m_level;
 };
