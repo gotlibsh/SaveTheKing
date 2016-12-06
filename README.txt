@@ -2,8 +2,7 @@
 	Save The king
 
 2.Written by:
-	a.Name:	Shlomo Gottlieb, 	Id:313377145
-	b.Name:	Naftali Lewenstein, Id:302538517
+	Shlomo Gottlieb & Naftali Lewenstein
 
 3.General Explanation:
 	This program is a multifunctional game, the goal of the game is to get the king to the Throne.
